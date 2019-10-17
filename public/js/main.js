@@ -11,7 +11,7 @@ function updateClock() {
   }
   var minute = now.getMinutes();
   if (minute < 10) minute = '0' + minute;
-  $('#clock').html(hour + ':' + minute + (am ? 'am' : 'pm'));
+  $('#clock').html(hour + ':' + minute)
 }
 
 updateClock();
@@ -23,9 +23,9 @@ function updatePage() {
   $.get(location.href, function(html) {
     var body = html.replace(/^[\S\s]*<body[^>]*?>/i, '')
                    .replace(/<\/body[\S\s]*$/i, '');
-    var content = $(body).find('.wrapper').html();
+    var content = $(body).html();
     if (content) {
-      $('.wrapper').html(content);
+      $('body').html(content);
       updateClock();
       errors = 0;
     } else {
@@ -38,4 +38,5 @@ function updatePage() {
   });
 }
 
-setInterval(updatePage, 5 * MINUTES);
+// Temporary.  Maybe...
+// setInterval(updatePage, 5 * MINUTES);
