@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# name this autostart
+/etc/xdg/autostart/clock.desktop
+
+[Desktop Entry]
+Name=Clock App
+Exec=/home/pi/run_clock
+Type=Application
+Terminal=true

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /home/pi/rpi-clock
+API_KEY=key LAT=123 LON=456 ruby app.rb &
+sleep 10
+chromium-browser --start-fullscreen --kiosk http://localhost:4567
