@@ -36,7 +36,7 @@
 
   <div class="column">
     <div class="sun">
-      <% if Time.now > @sunset + (60 * 60) %>
+      <% if Time.now < @sunrise + (60 * 60) %>
         <i class="wi wi-sunrise"></i>
         <%= @sunrise.strftime('%I:%M%p').downcase %>
       <% else %>
