@@ -1,11 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
+/* General CSS */
+
 body {
   font-family: 'Lato', sans-serif;
-  font-size: 14pt;
   max-width: 800px;
   max-height: 480px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,31 +18,39 @@ body {
 
 .row {
   display: flex;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
-.column {
-  display: flex;
-  flex-basis: 100%; /* needed? */
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.visible {
+  display: flex !important;
 }
 
-.centered {
-  text-align: center;
+.hidden {
+  display: none !important;
 }
 
-.second-row {
-  font-size: 35pt;
-}
+
+/* clock */
 
 #clock {
   display: flex;
   justify-content: center;
   font-size: 300px;
+  line-height: 300px;
   font-weight: 700;
+  width: 100%;
+}
+
+
+/* Weather info */
+
+#weather-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  line-height: 180px; /* screen is 480px and clock at 300 px leaves 180 */
+  font-size: 50pt;
 }
 
 .sun {
@@ -49,4 +60,50 @@ body {
 
 .sun i {
   margin-right: 10px;
+}
+
+
+/* Traffic Light*/
+
+#traffic-light {
+  display: none;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: -20px;
+}
+
+.circle {
+  height: 180px;
+  width: 180px;
+  border-radius: 50%;
+  filter: brightness(30%);
+}
+
+.red {
+  background-color: red;
+  background-image: radial-gradient(brown, transparent);
+}
+
+.yellow {
+  background-color: yellow;
+  background-image: radial-gradient(orange, transparent);
+}
+
+.green {
+  background-color: green;
+  background-image: radial-gradient(lime, transparent);
+}
+
+.red.on {
+  filter: brightness(100%);
+}
+
+.yellow.on {
+  filter: brightness(100%);
+}
+
+.green.on {
+  filter: brightness(150%);
+  background-color: green;
 }

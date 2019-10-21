@@ -1,7 +1,7 @@
 <div id="clock"></div>
 
 <div class="row second-row">
-  <div class="column">
+  <div id="weather-info">
     <%
       conditions = @weather['weather'].first
       icon = {
@@ -24,25 +24,26 @@
       }[conditions['icon']]
     %>
     <i class="conditions wi <%= icon %>"></i>
-  </div>
-  <div class="column">
+
     <div class="current-temp">
       <i class="wi wi-thermometer"></i>
       <%= @weather['main']['temp'] %>&deg;
     </div>
-    <div class="hilo-temp">
-    </div>
-  </div>
 
-  <div class="column">
     <div class="sun">
       <% if Time.now < @sunrise + (60 * 60) %>
         <i class="wi wi-sunrise"></i>
-        <%= @sunrise.strftime('%I:%M%p').downcase %>
+        <%= @sunrise.strftime('%l:%M%p').downcase %>
       <% else %>
         <i class="wi wi-sunset"></i>
-        <%= @sunset.strftime('%I:%M%p').downcase %>
+        <%= @sunset.strftime('%l:%M%p').downcase %>
       <% end %>
     </div>
+  </div>
+
+  <div id="traffic-light">
+    <div class="circle red"></div>
+    <div class="circle yellow"></div>
+    <div class="circle green"></div>
   </div>
 </div>
