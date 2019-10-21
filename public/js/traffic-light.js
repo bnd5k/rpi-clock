@@ -66,27 +66,36 @@ function manageWakeUp(currentTime) {
   }
 }
 
+function ensureTrafficLightOn() {
+  var trafficLight = document.getElementById('traffic-light');
+  trafficLightVisible = trafficLight.classList.contains('visible');
+  if (!trafficLightVisible) {
+    toggleWeather();
+    turnLightOn('red');
+  }
+}
+
 function manageTrafficLight() {
   // Traffic light should be on from 7:00 pm - 7:00 am
 
   var now = new Date();
   var hour = now.getHours();
+  var beforeMidnight = hour > 19 && hour <= 23;
+  var beforeWakeup = hour > 0 && hour <= 5;
 
-  switch(hour) {
-    case 6:
-      manageWakeUp(now);
-      break;
-    case 7:
-      // turn off the traffic light
-      toggleWeather();
-      break;
-    case 19:
-      manageBedtime(now);
-      break;
+  if (hour === 6) {
+    manageWakeUp(now);
+  } else if (hour === 7) {
+    toggleWeather();
+  } else if (hour === 19) {
+    manageBedtime(now);
+  } else if (beforeMidnight || beforeWakeup) {
+    // covers edge case where clock is plugged in after bedtime
+    ensureTrafficLightOn();
   }
 }
 
-setInterval(manageTrafficLight, 5 * MINUTES);
+setInterval(manageTrafficLight, 1 * MINUTES);
 
 
 
