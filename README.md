@@ -88,6 +88,19 @@ I'm using Raspbian -- you can use any distro, but YMMV.
     hdmi_drive=2
     ```
 
+9. Install Unclutter
+Uncltter will hide the mouse curser.
+
+```bash
+sudo apt-get install unclutter
+```
+
+Add the following line to /etc/xdg/lxsession/LXDE/autostart.
+
+```
+@unclutter -idle 0.1 -root
+```
+
 Boot the Pi and see if it works!
 
 ## Copyright and License
