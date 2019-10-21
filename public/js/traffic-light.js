@@ -1,5 +1,8 @@
 // I'd like to move away from jquery, so new code is in vanilla JS.
 
+var SECONDS = 1000;
+var MINUTES = 60 * SECONDS;
+
 function turnLightOn(lightColor) {
   var light = document.getElementsByClassName(lightColor)[0];
 
@@ -17,7 +20,11 @@ function toggleWeather() {
   var trafficLight = document.getElementById('traffic-light');
   var weather = document.getElementById('weather-info');
 
-  if (trafficLight.classList.contains('hidden')) {
+  // traffic light should have `hidden` attr but if plugged in after bed time,
+  // then it wouldn't, so we also look for absence of `visible` attr
+  var hiddenTrafficLight = trafficLight.classList.contains('hidden') || !trafficLight.classList.contains('visible');
+
+  if (hiddenTrafficLight) {
     trafficLight.classList.remove('hidden');
     weather.classList.remove('visible');
 
@@ -36,7 +43,7 @@ function manageBedtime(currentTime) {
   // if time is before 6:30 PM, is should be green
   // if time is after 6:30 PM and before 6:25am, it should be red
 
-  toggleWeather();
+  ensureTrafficLightOn();
 
   var currentMinutes = currentTime.getMinutes();
 
@@ -53,7 +60,7 @@ function manageWakeUp(currentTime) {
   // if time is after 6:25 but before 6:30, it should be yellow
   // if time is after 6:30, it should be green
 
-  toggleWeather();
+  ensureTrafficLightOn();
 
   var currentMinutes = currentTime.getMinutes();
 
@@ -66,12 +73,19 @@ function manageWakeUp(currentTime) {
   }
 }
 
+function ensureTrafficLightOff() {
+  var trafficLight = document.getElementById('traffic-light');
+  trafficLightVisible = trafficLight.classList.contains('visible');
+  if (trafficLightVisible) {
+    toggleWeather();
+  }
+}
+
 function ensureTrafficLightOn() {
   var trafficLight = document.getElementById('traffic-light');
   trafficLightVisible = trafficLight.classList.contains('visible');
   if (!trafficLightVisible) {
     toggleWeather();
-    turnLightOn('red');
   }
 }
 
@@ -92,11 +106,13 @@ function manageTrafficLight() {
   } else if (beforeMidnight || beforeWakeup) {
     // covers edge case where clock is plugged in after bedtime
     ensureTrafficLightOn();
+    turnLightOn('red');
+  } else {
+    ensureTrafficLightOff();
   }
 }
 
-setInterval(manageTrafficLight, 1 * MINUTES);
-
+setInterval(manageTrafficLight, 3 * MINUTES);
 
 
 
