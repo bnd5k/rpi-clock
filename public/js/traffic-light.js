@@ -112,7 +112,7 @@ function manageTrafficLight() {
   }
 }
 
-setInterval(manageTrafficLight, 3 * MINUTES);
+setInterval(manageTrafficLight, 1 * MINUTES);
 
 
 
