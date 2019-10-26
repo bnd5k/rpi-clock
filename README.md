@@ -1,36 +1,45 @@
 # rpi-clock
 
-![screenshot](https://raw.githubusercontent.com/seven1m/rpi-clock/master/screenshot.jpg)
-
 This is a very simple clock and weather page for Raspberry Pi.
 
-I needed a clock in my office and had a spare (cheap) flat-screen TV and a raspberry pi, so this was born.
+Under the hood, it's Vue.js app that generates a website that can be hosted on S3 and accessed by the RPi.
 
 It shows the current time, weather conditions (via Erik Flower's beautiful [weather icons](https://erikflowers.github.io/weather-icons/)),
-current temperature (using the [OpenWeatherMap API](http://openweathermap.org/api)), low temp, high temp, and sunset.
+current temperature (using the [OpenWeatherMap API](http://openweathermap.org/api)), sunrise, and sunset.
+
 
 ## Setup
 
 I'm using Raspbian -- you can use any distro, but YMMV.
 
-1. Install Ruby 2.2.2 on your Raspberry Pi. I used RVM, but you can do it however you want.
 
-2. Clone this repo or download the tarball and expand into your home directory on the Pi.
+1. Clone this repo or download the tarball and expand into your home directory on the Pi.
 
-3. Write a script in your home directory to start the app called "run_clock". This is mine:
+2. Local Setup
+  * On your machine, copy the `.env.example` to `.env` and enter in your info.
+  * run
+    ```
+    yarn install
+    ```
+  * Run the app locally with
+    ```
+    yarn serve
+    ```
+  * Onve you've verified that everything is working as expected, you can compile and minify the code for production.
+
+    ```
+    yarn build
+    ```
+  * Store the code where you like.
+
+
+3. On the Raspberry Pi, Write a script in your home directory to start the app called "run_clock". This is mine:
 
     ```bash
     #!/bin/bash
-
-    cd /home/pi/rpi-clock
-    GEM_PATH=/home/pi/.rvm/gems/ruby-2.2.2@rpi-clock:/home/pi/.rvm/gems/ruby-2.2.2@global /home/pi/.rvm/rubies/ruby-2.2.2/bin/ruby app.rb &
-    sleep 30
-    midori -e Fullscreen -a http://localhost:4567
+    chromium-browser --kiosk --app=<YOUR URL>
     ```
 
-    The `GEM_PATH` stuff and full path to ruby is because I used RVM. You might only need the `ruby app.rb &` part.
-
-    Notice that it sleeps for 30 seconds. This was me being generous because it takes several seconds for my Pi's wifi adapter to connect to the network.
 
 4. Make the script executable:
 
@@ -88,20 +97,19 @@ I'm using Raspbian -- you can use any distro, but YMMV.
     hdmi_drive=2
     ```
 
-9. Install Unclutter
-Uncltter will hide the mouse curser.
+9. Install Unclutter. Uncltter will hide the mouse curser.
 
-```bash
-sudo apt-get install unclutter
-```
+  ```bash
+  sudo apt-get install unclutter
+  ```
 
-Add the following line to /etc/xdg/lxsession/LXDE/autostart.
+  Add the following line to /etc/xdg/lxsession/LXDE/autostart.
 
-```
-@unclutter -idle 0.1 -root
-```
+  ```
+  @unclutter -idle 0.1 -root
+  ```
 
-Boot the Pi and see if it works!
+10. Boot the Pi and see if it works!
 
 ## Copyright and License
 
