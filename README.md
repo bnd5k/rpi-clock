@@ -30,8 +30,9 @@ I'm using Raspbian -- you can use any distro, but YMMV.
     ```
     yarn build
     ```
-  * Store the code where you like.
+  * Store the code where you like. This project has a development dependency on [vue-cli-service](https://github.com/multiplegeorges/vue-cli-plugin-s3-deploy).  Feel free to follow their instructions for deploying to S3.  This repo contains settings from the 'invoke' function and you can overwrite them via the `.env` file.
 
+  Note: I had to manually set up the static webhosting from inside the AWS console, but outside of that, the plugin worked great.  I'm confident they'll fix the issue I came up against soon.
 
 3. On the Raspberry Pi, Write a script in your home directory to start the app called "run_clock". This is mine:
 
