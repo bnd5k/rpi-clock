@@ -38,7 +38,7 @@ export default {
   methods: {
     init () {
       this.manageTrafficAndWeather();
-      setInterval(this.manageTrafficAndWeather, 1 * this.$minutes);
+      setInterval(this.manageTrafficAndWeather, 2 * this.$minutes);
     },
     manageTrafficAndWeather () {
       // Traffic light should be on from 7:00 pm - 7:00 am

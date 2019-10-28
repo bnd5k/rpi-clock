@@ -17,6 +17,7 @@ export default {
   },
   mounted () {
     this.manageTrafficLight();
+    setInterval(this.manageTrafficLight, 2 * this.$minutes);
   },
   methods: {
     manageTrafficLight() {
