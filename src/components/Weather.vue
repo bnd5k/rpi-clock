@@ -46,7 +46,7 @@ const weatherConditions = {
 }
 
 export default {
-  name: 'TrafficLight',
+  name: 'Weather',
   data () {
     return {
       apiKey: process.env.VUE_APP_API_KEY,
